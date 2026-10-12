@@ -1,4 +1,25 @@
 const toast = document.getElementById('toast');
+
+/* Learning progress and saved quotations */
+const learnStore={get(k,d){try{return JSON.parse(localStorage.getItem('abaicode_'+k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem('abaicode_'+k,JSON.stringify(v))}catch(e){}}};
+let learnState=learnStore.get('progress',{xp:0,done:0,streak:0,last:''});
+function updateLearn(){document.getElementById('xpValue').textContent=learnState.xp+' XP';document.getElementById('doneValue').textContent=learnState.done;document.getElementById('streakValue').textContent=learnState.streak+' күн';document.getElementById('levelSeal').textContent=String(Math.floor(learnState.xp/50)+1).padStart(2,'0');document.getElementById('xpBar').style.width=(learnState.xp%50/50*100)+'%';document.getElementById('xpCaption').textContent=(50-learnState.xp%50)+' XP қалды — келесі деңгейге жақындадың!';const root=document.getElementById('achievementList');root.innerHTML='';[['Алғашқы қадам',learnState.done>=1],['Білім іздеуші',learnState.xp>=30],['Ойшыл',learnState.xp>=50]].forEach(([n,ok])=>{const s=document.createElement('span');s.className='achievement '+(ok?'unlocked':'');s.textContent=(ok?'🏅 ':'🔒 ')+n;root.appendChild(s)})}
+function awardXP(n){learnState.xp+=n;learnState.done++;learnStore.set('progress',learnState);updateLearn()}
+document.getElementById('checkinButton').addEventListener('click',()=>{const today=new Date().toISOString().slice(0,10);if(learnState.last===today){notify('Бүгінгі қадамың белгіленген. Ертең жалғастыр!');return}const y=new Date(Date.now()-86400000).toISOString().slice(0,10);learnState.streak=learnState.last===y?learnState.streak+1:1;learnState.last=today;awardXP(10);notify('Жарайсың! +10 XP жинадың.')});
+const quoteData=[['«Ғылым таппай мақтанба»','Білім мен мінез туралы'],['«Адамзаттың бәрін сүй, бауырым деп»','Адамгершілік туралы'],['«Пайда ойлама, ар ойла»','Ар мен адалдық туралы'],['«Әсемпаз болма әрнеге»','Мақсат пен пайдалы іс туралы']];
+let quotePos=0;
+function displayQuote(){const q=quoteData[quotePos];document.getElementById('quoteDayText').textContent=q[0];document.getElementById('quoteDayAuthor').textContent='Абай Құнанбайұлы · '+q[1];const fav=learnStore.get('favorites',[]);document.getElementById('saveQuoteButton').textContent=fav.includes(q[0])?'♥ Сақталған':'♡ Таңдаулыға сақтау'}
+function displayFavorites(){const root=document.getElementById('favoritesList'),items=learnStore.get('favorites',[]);root.innerHTML='';if(!items.length){root.innerHTML='<p class="empty-favorites">Әзірге сақталған дәйексөз жоқ. Ұнаған ойды сақтап көр.</p>';return}items.forEach((q,i)=>{const row=document.createElement('div');row.className='favorite-item';const quote=document.createElement('blockquote');quote.textContent=q;const del=document.createElement('button');del.textContent='Өшіру';del.addEventListener('click',()=>{const next=learnStore.get('favorites',[]);next.splice(i,1);learnStore.set('favorites',next);displayFavorites();displayQuote()});row.append(quote,del);root.appendChild(row)})}
+document.getElementById('saveQuoteButton').addEventListener('click',()=>{const q=quoteData[quotePos][0];let f=learnStore.get('favorites',[]);f=f.includes(q)?f.filter(x=>x!==q):[...f,q];learnStore.set('favorites',f);displayQuote();displayFavorites()});
+document.getElementById('nextQuoteButton').addEventListener('click',()=>{quotePos=(quotePos+1)%quoteData.length;displayQuote()});
+const gameQs=[{q:'Абай қай жылы дүниеге келді?',o:['1845 жылы','1855 жылы','1904 жылы'],a:0},{q:'Бес асыл істің бірі қайсы?',o:['Өсек','Талап','Еріншектік'],a:1},{q:'Абайдың шын есімі қандай?',o:['Ибраһим','Мұхтар','Шоқан'],a:0},{q:'Қара сөздерде не туралы айтылады?',o:['Тек спорт','Адам, білім және мінез','Ауа райы'],a:1},{q:'Абай нені жоғары бағалады?',o:['Бос мақтанды','Жалқаулықты','Білім мен еңбекті'],a:2}];
+let gIndex=0,gAnswered=false;
+function drawGame(){const q=gameQs[gIndex];document.getElementById('gameQuestionCount').textContent=(gIndex+1)+' / '+gameQs.length;document.getElementById('gameQuestion').textContent=q.q;document.getElementById('gameFeedback').textContent='Дұрыс жауапқа +10 XP';const root=document.getElementById('gameOptions');root.innerHTML='';gAnswered=false;gameQs[gIndex].o.forEach((t,i)=>{const b=document.createElement('button');b.textContent=t;b.addEventListener('click',()=>{if(gAnswered)return;gAnswered=true;[...root.children].forEach((el,j)=>{el.disabled=true;if(j===q.a)el.classList.add('correct');else if(j===i)el.classList.add('incorrect')});if(i===q.a){document.getElementById('gameFeedback').textContent='Дұрыс! +10 XP';awardXP(10)}else document.getElementById('gameFeedback').textContent='Келесіде тағы байқап көр!';document.getElementById('gameNextButton').disabled=false});root.appendChild(b)});document.getElementById('gameNextButton').disabled=true;document.getElementById('gameNextButton').textContent=gIndex===gameQs.length-1?'Қайта бастау ↻':'Келесі сұрақ →'}
+document.getElementById('startGameButton').addEventListener('click',()=>{gIndex=0;document.getElementById('gameQuiz').hidden=false;drawGame()});
+document.getElementById('gameNextButton').addEventListener('click',()=>{gIndex=(gIndex+1)%gameQs.length;drawGame()});
+updateLearn();displayQuote();displayFavorites();
+const readToggle=document.createElement('button');readToggle.className='language-toggle';readToggle.type='button';readToggle.textContent='Aa · ОҚУ РЕЖИМІ';document.querySelector('.top-banner').appendChild(readToggle);readToggle.addEventListener('click',()=>{document.body.classList.toggle('reading-mode');readToggle.textContent=document.body.classList.contains('reading-mode')?'Aa · ҚАЛЫПТЫ РЕЖИМ':'Aa · ОҚУ РЕЖИМІ'});
+
 let activeDialog;
 function notify(message) {
   if (activeDialog) activeDialog.remove();
@@ -105,7 +126,9 @@ function openTab(section) {
     values: ['Абай құндылықтары', 'Талап, еңбек, терең ой, қанағат және рақым: мағынасы мен өмірдегі мысалдары.'],
     works: ['Абай шығармалары', 'Өлеңдер мен қара сөздердің негізгі ойын оқып, бүгінгі өмірмен байланыстырып көр.'],
     practice: ['Практика және тест', 'Өмірлік сұрақтарға жауап беріп, біліміңді шағын тест арқылы тексер.'],
-    about: ['Абай туралы', 'Абай Құнанбайұлының өмір жолы, шығармашылығы және тарихи мұрасы.']
+    about: ['Абай туралы', 'Абай Құнанбайұлының өмір жолы, шығармашылығы және тарихи мұрасы.'],
+    games: ['Ойындар мен жетістіктер', 'Ойнап үйрен, XP жина және жаңа жетістіктер аш.'],
+    favorites: ['Таңдаулы дәйексөздер', 'Сақтаған ойларыңды кез келген уақытта қайта оқы.']
   };
   const heading = document.querySelector('.welcome-row h1');
   const subtitle = document.querySelector('.welcome-row p');
@@ -130,6 +153,8 @@ function openTab(section) {
   if (section === 'works') { add('worksPanel'); add('worksLibrary'); }
   if (section === 'practice') { add('challengePanel'); add('quizSection'); }
   if (section === 'about') add('aboutAbai');
+  if (section === 'games') add('gamesSection');
+  if (section === 'favorites') { add('favoritesSection'); displayFavorites(); }
   tabContent.scrollIntoView({behavior:'smooth', block:'start'});
 }
 document.querySelectorAll('.nav-item').forEach(item => {
