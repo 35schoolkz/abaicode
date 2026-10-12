@@ -274,7 +274,7 @@ document.getElementById('nextQuiz').addEventListener('click',()=>{
  if(!quizAnswered)return;
  if(selectedAnswer===null)return;
  if(document.getElementById('nextQuiz').textContent.includes('тексеру')){showQuizResult();return;}
- if(quizIndex<quizLevels[currentLevel].questions.length-1){quizIndex++;renderQuiz();}
+ if(quizIndex<4){quizIndex++;renderQuiz();}
 });
 chooseLevelQuestions();drawLevelRoad();renderQuiz();
 
