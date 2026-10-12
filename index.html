@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f8fc" />
+  <title>ABAI CODE — Абай ойының цифрлық компасы</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="top-banner">
+      <div class="brand"><div class="book-logo">▱</div><div><strong>ABAI CODE</strong><span>Абай ойының цифрлық компасы</span></div></div>
+      <div class="banner-art" aria-hidden="true"><span class="sun"></span><span class="mountain m1"></span><span class="mountain m2"></span><span class="mountain m3"></span><span class="tree-line">♠　♠　♠　♠　♠</span></div>
+      <div class="quote">«Адамзаттың бәрін сүй,<br/>бауырым деп...»<small>АБАЙ</small></div>
+      <div class="portrait" aria-label="Абай Құнанбайұлының көркем бейнесі">А</div>
+      <div class="top-actions"><button aria-label="Іздеу" title="Іздеу">⌕</button><button aria-label="Хабарламалар" title="Хабарламалар">♧</button><button aria-label="Профиль" title="Профиль">♙</button></div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <nav aria-label="Негізгі мәзір">
+          <button class="nav-item active" data-section="home"><span>⌂</span>Басты бет</button>
+          <button class="nav-item" data-section="situations"><span>☏</span>Жағдайыңды таңда</button>
+          <button class="nav-item" data-section="code"><span>◉</span>Абай коды</button>
+          <button class="nav-item" data-section="works"><span>▤</span>Абай шығармасы</button>
+          <button class="nav-item" data-section="dna"><span>♜</span>ДНҚ тексеру</button>
+          <button class="nav-item" data-section="challenge"><span>♧</span>Сен не істер едің?</button>
+        </nav>
+        <div class="sidebar-landscape"><div class="mini-mountains"></div><p>Білімдіден шыққан сөз,<br/>Талаптыға болсын кез.</p><small>АБАЙ</small></div>
+      </aside>
+
+      <main class="main-content" id="mainContent">
+        <div class="welcome-row"><div><h1>Жағдайыңды таңда</h1><p>Саған жақын өмірлік жағдайды таңда, Абай ойы саған жол көрсетеді.</p></div><span class="target-icon">◎</span></div>
+        <div class="dashboard-grid">
+          <section class="center-column">
+            <div class="situation-grid">
+              <button class="tile blue" data-message="Сабақ оқуға ерінсең, аздан баста. Абай айтқан бес асыл істің бірі — талап."><span class="tile-icon">▣</span><span>Сабақ оқуға<br/>ерініп жүрмін</span><b>›</b></button>
+              <button class="tile peach" data-message="Досыңды тыңда, қолда. Нағыз достық сенім мен шынайылықтан басталады."><span class="tile-icon">♟</span><span>Досыммен<br/>ренжісіп қалдым</span><b>›</b></button>
+              <button class="tile mint" data-message="Қиын тапсырманы кішкентай қадамдарға бөл. Еңбек пен табандылық нәтиже береді."><span class="tile-icon">▣</span><span>Алға тапсырманы<br/>толық орындасам<br/>бола ма?</span><b>›</b></button>
+              <button class="tile pink" data-message="Жібермес бұрын ақпаратты тексер, қатеңді мойындаудан қорықпа. Адалдық маңызды."><span class="tile-icon">☰</span><span>Тексерілмеген<br/>хабарламаны<br/>жіберуге бола ма?</span><b>›</b></button>
+              <button class="tile lavender wide" data-message="Уақытыңды жоспарла: оқу, демалыс және жақындарыңа уақыт бөл. Әр минутты пайдалы өткіз."><span class="tile-icon">▯</span><span>Телефонға көп<br/>уақытым кетеді</span><b>›</b></button>
+            </div>
+            <div class="bottom-grid">
+              <section class="panel explainer"><h2><span class="small-icon ochre">▤</span>Қысқа түсіндірме</h2><p id="explainText">Абай бұл жерде талап пен еңбектің маңызды екенін көрсетеді. Дайын жауапқа сүйенбей, өзің ізденіп үйрену керек.</p></section>
+              <section class="panel dna-panel" id="dnaPanel"><h2><span class="small-icon teal">♜</span>ДНҚ тексеру</h2><div class="metrics"><div class="metric"><div class="ring r1"><span>85%</span></div><small>Дерек</small></div><div class="metric"><div class="ring r2"><span>70%</span></div><small>Нақтылық</small></div><div class="metric"><div class="ring r3"><span>90%</span></div><small>Құндылық</small></div><div class="metric"><div class="ring r4"><span>75%</span></div><small>Өмірмен<br/>байланыс</small></div></div></section>
+            </div>
+          </section>
+          <aside class="right-column">
+            <section class="panel code-panel" id="codePanel"><h2><span class="compass">◉</span>Абай коды</h2><button class="code-row green" data-code="ТӨЗ — Талап" data-description="Талап — білуге, үйренуге және алға ұмтылуға деген құлшыныс."><span>🌱</span><strong>ТӨЗ – Талап</strong></button><button class="code-row blue-row" data-code="Е02 – Еңбек" data-description="Еңбек адамды шыңдайды. Мақсатқа жету үшін күн сайын әрекет жаса."><span>⚙</span><strong>Е02 – Еңбек</strong></button><button class="code-row sand" data-code="Қ05 – Қайрат" data-description="Қайрат — қиындыққа мойымай, дұрыс істі жалғастыра білу."><span>▲</span><strong>Қ05 – Қайрат</strong></button></section>
+            <section class="panel work-panel" id="worksPanel"><h2><span class="small-icon book">▤</span>Абай шығармасы</h2><button class="quote-card" id="quoteButton"><strong>«Ғылым таппай мақтанба»</strong><span>Талап, еңбек, терең ой...</span><i>✒</i></button></section>
+            <section class="panel challenge-panel" id="challengePanel"><h2><span class="small-icon bulb">♧</span>Сен не істер едің?</h2><p id="challengeText">Сен бүгін қандай кішкентай қадам жасай аласың?</p><button class="next-question" id="nextQuestion" aria-label="Келесі сұрақ">➜</button></section>
+          </aside>
+        </div>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+    <footer>ABAI CODE <span>•</span> Абай мұрасы — бүгінгі өмірге бағыт</footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
