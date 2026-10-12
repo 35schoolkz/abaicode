@@ -1,16 +1,24 @@
-# ABAI CODE
+# ABAI CODE — Абай ойының цифрлық компасы
 
-Responsive static website inspired by the supplied reference image. Built with plain HTML, CSS and JavaScript, so no install or build step is required.
+Қазақ тіліндегі, телефонға және компьютерге бейімделген білім беру сайты. HTML, CSS және JavaScript арқылы жасалған; орнату немесе құрастыру қажет емес.
 
-## Run locally
-Open `index.html` in your browser.
+## Жергілікті іске қосу
+`index.html` файлын браузерде ашыңыз.
 
-## Publish with GitHub Pages
-1. Create a GitHub repository named `abai-code`.
-2. Upload `index.html`, `style.css`, and `script.js` to the repository root.
-3. Open **Settings → Pages**.
-4. Under **Build and deployment**, select **Deploy from a branch**.
-5. Select branch **main** and folder **/(root)**, then press **Save**.
-6. Wait a few minutes and use the URL shown in the Pages section.
+## GitHub Pages арқылы жариялау
+1. `index.html`, `style.css`, `script.js` файлдарын репозиторийдің негізгі (`root`) бумасына жүктеңіз.
+2. GitHub репозиторийінде **Settings → Pages** бөліміне өтіңіз.
+3. **Deploy from a branch** таңдаңыз.
+4. Branch: `main`, folder: `/(root)` таңдаңыз да **Save** басыңыз.
+5. Бірнеше минуттан кейін Pages бөліміндегі сайт сілтемесін ашыңыз.
 
-The site is a static front-end demo. The circular “DNA” values are illustrative, not scientific measurements, and there is no database or user login.
+## Сайт бөлімдері
+- Өмірлік жағдайларға арналған кеңестер
+- Абай коды: талап, еңбек, қайрат
+- Абайдың өмірі мен мұрасы туралы ақпарат
+- Бес асыл іс карточкалары
+- Абай шығармалары туралы қысқаша мәлімет
+- Үш сұрақтан тұратын интерактивті тест
+- Үлгілік ДНҚ индикаторлары
+
+Ескерту: «ДНҚ тексеру» көрсеткіштері тек дизайн демонстрациясы болып табылады; олар ғылыми немесе медициналық өлшем емес. Сайтта аккаунт пен дерекқор жоқ.
