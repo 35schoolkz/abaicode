@@ -163,3 +163,59 @@ body{background:radial-gradient(ellipse at 12% 0%,#fff9ed 0,transparent 38%),#e8
 .favorites-list{display:grid;gap:10px}.favorite-item{display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid #e9dcc7;border-radius:13px;background:#fffaf2}.favorite-item blockquote{flex:1;margin:0;font:italic 15px/1.6 Georgia,serif;color:#65452b}.favorite-item small{display:block;margin-top:5px;font:10px Inter,sans-serif;color:#9a8469}.favorite-item button{border:0;border-radius:8px;background:#f5e4ca;color:#80502d;padding:8px 10px;cursor:pointer}.empty-favorites{font-size:12px;line-height:1.7;color:#897760;padding:15px;border:1px dashed #ddc8a8;border-radius:12px}
 body.reading-mode{background:#eee2ca}body.reading-mode .app-shell{max-width:980px;background:#fffaf0}body.reading-mode .info-card p,body.reading-mode .article-block p,body.reading-mode .timeline-item p,body.reading-mode .contrast-card li{font-size:15px;line-height:1.95}.language-toggle{position:absolute;z-index:4;right:16px;bottom:10px;border:1px solid #d9c09a;border-radius:8px;background:#fff8e9;color:#86542d;padding:5px 8px;font-size:9px;font-weight:800;cursor:pointer}
 @media(max-width:620px){.ornament{display:none}.progress-stats{gap:5px}.progress-stats>div{padding:8px 6px}.progress-stats strong{font-size:13px}.progress-stats small{font-size:9px}.game-grid{grid-template-columns:1fr}.quote-of-day blockquote{font-size:19px}.language-toggle{right:8px;bottom:7px}}
+
+
+/* Mobile-first cleanup: compact spacing, readable cards, and a menu that wraps instead of clipping. */
+@media (max-width: 620px) {
+  html, body { max-width: 100%; overflow-x: hidden; }
+  .app-shell { width: 100%; padding: 8px; box-shadow: none; }
+  .top-banner { height: 92px; min-height: 92px; padding: 15px 12px; border-radius: 15px; }
+  .brand { max-width: 70%; align-items: flex-start; }
+  .brand strong { font-size: 18px; line-height: 1.2; }
+  .brand span { display: block; max-width: 155px; line-height: 1.35; }
+  .portrait { right: 12%; width: 54px; height: 66px; font-size: 40px; opacity: .55; }
+  .top-actions { gap: 4px; }
+  .top-actions button { width: 28px; height: 28px; }
+  .layout { display: block; margin-top: 8px; }
+  .sidebar { margin: 0 0 9px; border-radius: 13px; }
+  .sidebar nav { display: flex; flex-wrap: wrap; overflow: visible; padding: 7px; gap: 5px; }
+  .nav-item { height: 36px; min-height: 36px; flex: 1 1 calc(50% - 5px); justify-content: flex-start; padding: 0 9px; font-size: 11px; gap: 7px; white-space: normal; }
+  .nav-item span { flex: 0 0 18px; width: 18px; text-align: center; }
+  .welcome-row { margin-bottom: 8px; padding: 11px 12px; gap: 9px; }
+  .welcome-row h1 { font-size: 16px; line-height: 1.3; }
+  .welcome-row p { font-size: 11px; }
+  .dashboard-grid { display: block; }
+  .situation-grid { grid-template-columns: 1fr 1fr; gap: 7px; }
+  .tile { min-width: 0; min-height: 78px; grid-template-columns: 27px minmax(0,1fr) 8px; padding: 9px 7px; font-size: 10px; overflow-wrap: anywhere; }
+  .tile-icon { font-size: 21px; }
+  .bottom-grid { grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
+  .right-column { margin-top: 8px; gap: 8px; }
+  .panel { padding: 12px; border-radius: 13px; }
+  .progress-panel, .quote-of-day { margin-top: 8px; padding: 13px; border-radius: 14px; }
+  .progress-head h2 { font-size: 15px; }
+  .progress-head p { font-size: 11px; }
+  .progress-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 5px; }
+  .progress-stats > div { min-width: 0; padding: 8px 4px; }
+  .progress-stats strong { display: block; font-size: 13px; line-height: 1.3; overflow-wrap: anywhere; }
+  .progress-stats small { display: block; font-size: 9px; line-height: 1.3; }
+  .xp-caption { font-size: 11px; }
+  .daily-action { min-height: 44px; width: 100%; justify-content: center; }
+  .quote-of-day blockquote { font-size: 18px; line-height: 1.4; }
+  .quote-tools { display: flex; gap: 7px; }
+  .quote-tools button { min-height: 42px; flex: 1 1 100%; text-align: center; }
+  .deep-dive { margin-top: 10px; padding: 13px; border-radius: 14px; }
+  .section-heading { gap: 9px; margin-bottom: 12px; }
+  .section-heading h2 { font-size: 16px; }
+  .section-heading p { font-size: 11px; }
+  .quiz-card { padding: 13px; }
+  .quiz-card h3 { font-size: 15px; }
+  .quiz-options button { min-height: 44px; padding: 11px; line-height: 1.45; }
+  .primary-button { min-height: 44px; justify-content: center; }
+  .tab-content { min-height: 0; margin-top: 8px; }
+  .tab-content > .panel, .tab-content > .deep-dive { margin-bottom: 9px; }
+  footer { padding: 13px 0 5px; }
+}
+@media (min-width: 621px) and (max-width: 900px) {
+  .sidebar nav { display: grid; grid-template-columns: 1fr 1fr; }
+  .nav-item { min-width: 0; padding: 0 9px; gap: 7px; }
+}
