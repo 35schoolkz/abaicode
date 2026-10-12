@@ -1,10 +1,19 @@
 const toast = document.getElementById('toast');
-let toastTimer;
+let activeDialog;
 function notify(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 4200);
+  if (activeDialog) activeDialog.remove();
+  const overlay = document.createElement('div');
+  overlay.className = 'answer-overlay';
+  overlay.innerHTML = '<section class="answer-dialog" role="dialog" aria-modal="true" aria-label="Абай кеңесі"><button class="answer-close" aria-label="Жабу">×</button><div class="answer-mark">✦</div><h2>Абай кеңесі</h2><p class="answer-message"></p><button class="answer-ok">Түсіндім</button></section>';
+  overlay.querySelector('.answer-message').textContent = message;
+  const close = () => { overlay.remove(); activeDialog = null; };
+  overlay.querySelector('.answer-close').addEventListener('click', close);
+  overlay.querySelector('.answer-ok').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function esc(e){ if(e.key === 'Escape'){close();document.removeEventListener('keydown',esc);} });
+  document.body.appendChild(overlay);
+  activeDialog = overlay;
+  overlay.querySelector('.answer-ok').focus();
 }
 
 document.querySelectorAll('.tile').forEach(tile => {
@@ -39,33 +48,43 @@ document.getElementById('quoteButton').addEventListener('click', () => {
   notify('«Ғылым таппай мақтанба» — Абайдың жастарға арналған өлеңі. Ақын талап, еңбек, терең ой, қанағат пен рақымды бағалауға шақырады.');
 });
 
+const navSections = {
+  situations: [],
+  code: [],
+  works: ['worksLibrary'],
+  dna: [],
+  challenge: [],
+  about: ['aboutAbai','valuesSection'],
+  quiz: ['quizSection']
+};
 document.querySelectorAll('.nav-item').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     item.classList.add('active');
-    const sections = {
-      home: ['Басты бет', 'Қош келдің! Өзіңе керекті бөлімді таңда.'],
-      situations: ['Жағдайыңды таңда', 'Төмендегі жағдайлардың бірін басып, Абай ойына негізделген кеңесті оқы.'],
-      code: ['Абай коды', 'Талап, еңбек және қайрат туралы карточканы таңдап көр.'],
-      works: ['Абай шығармасы', '«Ғылым таппай мақтанба» өлеңінің идеясын ашу үшін карточканы бас.'],
+    const section = item.dataset.section;
+    const titles = {
+      home: ['Жағдайыңды таңда', 'Саған жақын өмірлік жағдайды таңда, Абай ойы саған жол көрсетеді.'],
+      situations: ['Жағдайыңды таңда', 'Төмендегі жағдайлардың бірін таңдап, кеңес ал.'],
+      code: ['Абай коды', 'Талап, еңбек және қайрат туралы карточканы таңда.'],
+      works: ['Абай шығармасы', 'Оқуға ұсынылған шығарманы таңдап, түсіндірмесін оқы.'],
       dna: ['ДНҚ тексеру', 'Бұл — үлгілік көрсеткіштер. Олар нақты ғылыми өлшем емес.'],
       challenge: ['Сен не істер едің?', 'Келесі сұрақты көру үшін көрсеткі батырмасын бас.'],
-      about: ['Абай әлемі', 'Абайдың өмірі, қара сөздері және асыл істері туралы оқы.'],
+      about: ['Абай әлемі', 'Абайдың өмірі және бес асыл ісі туралы оқы.'],
       quiz: ['Өзіңді тексер', 'Абай мұрасы туралы шағын тестті орында.']
     };
-    const info = sections[item.dataset.section];
-    document.querySelector('.welcome-row h1').textContent = info[0];
-    document.querySelector('.welcome-row p').textContent = info[1];
-    if (item.dataset.section === 'dna') document.getElementById('dnaPanel').scrollIntoView({behavior:'smooth', block:'center'});
-    else if (item.dataset.section === 'code') document.getElementById('codePanel').scrollIntoView({behavior:'smooth', block:'center'});
-    else if (item.dataset.section === 'works') document.getElementById('worksPanel').scrollIntoView({behavior:'smooth', block:'center'});
-    else if (item.dataset.section === 'challenge') document.getElementById('challengePanel').scrollIntoView({behavior:'smooth', block:'center'});
-    else if (item.dataset.section === 'about') document.getElementById('aboutAbai').scrollIntoView({behavior:'smooth', block:'start'});
-    else if (item.dataset.section === 'quiz') document.getElementById('quizSection').scrollIntoView({behavior:'smooth', block:'start'});
-    else window.scrollTo({top:0, behavior:'smooth'});
+    document.querySelector('.welcome-row h1').textContent = titles[section][0];
+    document.querySelector('.welcome-row p').textContent = titles[section][1];
+    document.querySelectorAll('.deep-dive').forEach(el => el.classList.remove('is-visible'));
+    (navSections[section] || []).forEach(id => document.getElementById(id)?.classList.add('is-visible'));
+    const targets = {
+      home: 'mainContent', situations: 'mainContent', code: 'codePanel', dna: 'dnaPanel',
+      challenge: 'challengePanel', works: 'worksLibrary', about: 'aboutAbai', quiz: 'quizSection'
+    };
+    const target = document.getElementById(targets[section] || 'mainContent');
+    if (section === 'home' || section === 'situations') window.scrollTo({top:0,behavior:'smooth'});
+    else target?.scrollIntoView({behavior:'smooth',block:'start'});
   });
 });
-
 document.querySelectorAll('.top-actions button').forEach((button, index) => {
   const messages = ['Іздеу мүмкіндігі кейін қосылады.', 'Қазір жаңа хабарлама жоқ.', 'Профиль бөлімі кейін қосылады.'];
   button.addEventListener('click', () => notify(messages[index]));
