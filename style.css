@@ -268,3 +268,11 @@ body.reading-mode{background:#eee2ca}body.reading-mode .app-shell{max-width:980p
 .quiz-footer-note p{margin:0;font-size:11px;line-height:1.7}
 .quiz-footer-note strong{color:#345348}
 @media(max-width:700px){.level-quiz-shell{padding:12px;border-radius:17px}.level-quiz-banner{padding:16px 14px;gap:10px}.quiz-banner-symbol{flex-basis:40px;height:40px;border-radius:12px;font-size:24px}.level-quiz-banner h3{font-size:17px}.level-quiz-banner p{font-size:11px;padding-right:0}.quiz-trophy{font-size:28px}.level-road{gap:5px}.level-stop{padding:9px 2px;border-radius:11px}.level-stop-icon{width:29px;height:29px;font-size:14px}.level-stop small{font-size:9px}.level-quiz-card{padding:15px 12px}.level-quiz-card .quiz-options{grid-template-columns:1fr;gap:8px}.level-option{min-height:50px;padding:12px;font-size:12px}.quiz-actions{align-items:stretch}.quiz-actions .primary-button{width:100%;justify-content:center}.quiz-reward{width:100%;text-align:center}.quiz-footer-note{padding:11px}}
+
+/* Keep the practice tab focused on the level quiz; achievements are a supporting card. */
+.achievements-only{grid-template-columns:minmax(0,1fr)}
+.achievements-only .game-card{background:linear-gradient(135deg,#fffdf7,#f1eadb);border-color:#e6d8bb}
+.achievements-only .achievement-list{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.achievements-only .achievement{padding:9px 12px;border-radius:12px}
+.level-quiz-card .quiz-options .level-option{width:100%}
+@media(max-width:700px){.achievements-only .game-card{padding:16px}.level-quiz-banner:after{right:42px;font-size:30px}.level-quiz-banner p{max-width:230px}}
