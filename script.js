@@ -31,17 +31,30 @@ document.querySelectorAll('.code-row').forEach(row => {
   });
 });
 
+const dailyTips = [
+  {title:'Талап', tip:'Бүгін бір пәннен өзің түсінбеген тақырыпты таңда.', step:'Алғашқы қадам: 10 минут оқы да, түсінгеніңді өз сөзіңмен 3 сөйлемге жаз.'},
+  {title:'Еңбек', tip:'Үлкен тапсырманы кішкентай бөліктерге бөл.', step:'Алғашқы қадам: тізім жаса, ең жеңіл бөлігін қазір орында және біткенін белгіле.'},
+  {title:'Терең ой', tip:'Жауап бермес бұрын асықпай ойлан.', step:'Алғашқы қадам: өзіңнен «Бұл ақпарат рас па? Дәлелім қандай?» деп сұра.'},
+  {title:'Қанағат', tip:'Уақытың мен қолыңдағы мүмкіндікті бағала.', step:'Алғашқы қадам: бүгін пайдалы болған бір нәрсені жазып, уақытыңды неге жұмсағаныңды қара.'},
+  {title:'Рақым', tip:'Бүгін бір адамға шын көңілмен көмектес.', step:'Алғашқы қадам: досыңды тыңда, үйдегілерге көмектес немесе біреуге жылы сөз айт.'}
+];
+let dailyTipIndex = -1;
 document.getElementById('dailyAction').addEventListener('click', () => {
-  const tips = [
-    'Талап: бүгін бір тақырыпты таңдап, ол туралы үш жаңа мәлімет үйрен.',
-    'Еңбек: үлкен тапсырманы үш шағын қадамға бөл де, бірін қазір орында.',
-    'Терең ой: бір шешім қабылдамас бұрын оның екі пайдасы мен бір ықтимал салдарын ойлан.',
-    'Қанағат: қолыңда бар бір жақсы мүмкіндікті бағалап, соны пайдалы қолдан.',
-    'Рақым: бір адамды мұқият тыңда немесе ештеңе күтпей көмектес.'
-  ];
-  const tip = tips[Math.floor(Math.random() * tips.length)];
-  document.querySelector('.daily-prompt span').textContent = tip;
-  notify(tip);
+  dailyTipIndex = (dailyTipIndex + 1) % dailyTips.length;
+  const current = dailyTips[dailyTipIndex];
+  const title = document.getElementById('dailyTipText');
+  const step = document.getElementById('dailyStep');
+  title.textContent = current.title + ': ' + current.tip;
+  step.textContent = current.step;
+  step.hidden = false;
+  const panel = document.getElementById('dailyPanel');
+  panel.classList.remove('tip-updated');
+  void panel.offsetWidth;
+  panel.classList.add('tip-updated');
+  const button = document.getElementById('dailyAction');
+  button.innerHTML = dailyTipIndex === dailyTips.length - 1
+    ? 'Қайтадан бастау <span>↻</span>'
+    : 'Келесі кеңес <span>→</span>';
 });
 
 const questions = [
