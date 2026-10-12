@@ -115,9 +115,22 @@
         </section>
 
         <section class="deep-dive quiz-section" id="quizSection">
-          <div class="section-heading"><span class="section-symbol">✎</span><div><h2>Өзіңді тексер</h2><p>Абай мұрасы туралы шағын сұрақ.</p></div></div>
-          <div class="quiz-card"><p class="quiz-count" id="quizCount">СҰРАҚ 1 / 3</p><h3 id="quizQuestion">Абайдың «Ғылым таппай мақтанба» өлеңінде неге ұмтылу айтылады?</h3><div class="quiz-options" id="quizOptions"><button data-correct="false">Тек атақ пен байлыққа</button><button data-correct="true">Білімге, еңбекке және жақсы мінезге</button><button data-correct="false">Уақытты бос өткізуге</button></div><p id="quizFeedback" class="quiz-feedback" aria-live="polite">Жауаптардың бірін таңда.</p><button id="nextQuiz" class="primary-button" disabled>Келесі сұрақ <span>→</span></button></div>
-        </section>
+  <div class="section-heading"><span class="section-symbol">✦</span><div><h2>Абай жолы: деңгейлік викторина</h2><p>Әр деңгейде 5 сұрақ бар. Барлығына дұрыс жауап берсең ғана келесі деңгей ашылады.</p></div></div>
+  <div class="level-quiz-shell">
+    <div class="level-quiz-banner"><div class="quiz-banner-symbol">✧</div><div><span class="quiz-kicker">БІЛІМ САПАРЫ</span><h3>Біліміңді сына, деңгейіңді көтер!</h3><p>Бастаушыдан Абай мұрасын терең білетін зерттеушіге дейін.</p></div><div class="quiz-trophy" aria-hidden="true">🏆</div></div>
+    <div class="level-road" id="levelRoad" aria-label="Викторина деңгейлері"></div>
+    <div class="quiz-card level-quiz-card">
+      <div class="level-card-top"><p class="quiz-count" id="quizCount">1-ДЕҢГЕЙ · 1 / 5 СҰРАҚ</p><span class="quiz-difficulty" id="quizDifficulty">БАСТАУШЫ</span></div>
+      <div class="level-progress-track"><span id="levelQuizProgress"></span></div>
+      <h3 id="quizQuestion">Абай қай жылы дүниеге келді?</h3>
+      <p class="quiz-hint">✦ Бір жауапты таңда. Асықпай ойлан!</p>
+      <div class="quiz-options" id="quizOptions"></div>
+      <p id="quizFeedback" class="quiz-feedback" aria-live="polite">Дайын болсаң, бастайық!</p>
+      <div class="quiz-actions"><button id="nextQuiz" class="primary-button" disabled>Жауапты тексеру <span>→</span></button><span class="quiz-reward">✧ Деңгей үшін +50 XP</span></div>
+    </div>
+    <div class="quiz-footer-note"><span>❋</span><p><strong>Абайша ойлан:</strong> білімге ұмтыл, әр қатеден сабақ ал. Қате жауап берсең, осы деңгейді қайта өтіп көре аласың.</p></div>
+  </div>
+</section>
         <div class="toast" id="toast" role="status" aria-live="polite"></div>
       </main>
     </div>
