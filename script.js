@@ -246,11 +246,12 @@ function renderQuiz(){
  document.getElementById('levelQuizProgress').style.width=((quizIndex/5)*100)+'%';
  document.getElementById('quizFeedback').textContent='Жауаптардың бірін таңда.';
  options.innerHTML='';
- q.options.forEach((option,index)=>{const b=document.createElement('button');b.type='button';b.textContent=option;b.className='level-option';b.addEventListener('click',()=>{if(quizAnswered||levelFailed||levelFinished)return;selectedAnswer=index;quizAnswered=true;[...options.children].forEach((el,j)=>{el.classList.toggle('selected',j===index)});document.getElementById('quizFeedback').textContent='Таңдауың белгіленді. Тексеруге дайын болсаң, батырманы бас.';document.getElementById('nextQuiz').disabled=false;document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';});options.appendChild(b)});
+ q.options.forEach((option,index)=>{const b=document.createElement('button');b.type='button';b.textContent=option;b.className='level-option';b.addEventListener('click',()=>{if(quizAnswered||levelFailed||levelFinished)return;selectedAnswer=index;[...options.children].forEach((el,j)=>{el.classList.toggle('selected',j===index)});document.getElementById('quizFeedback').textContent='Таңдауың белгіленді. Тексеруге дайын болсаң, батырманы бас.';document.getElementById('nextQuiz').disabled=false;document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';});options.appendChild(b)});
  document.getElementById('nextQuiz').disabled=true;
  document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';
 }
 function showQuizResult(){
+ quizAnswered=true;
  const q=currentQuestions[quizIndex],options=[...document.getElementById('quizOptions').children],next=document.getElementById('nextQuiz');
  options.forEach((el,i)=>{el.disabled=true;if(i===q.correct)el.classList.add('correct');else if(i===selectedAnswer)el.classList.add('incorrect')});
  document.getElementById('levelQuizProgress').style.width=(((quizIndex+1)/5)*100)+'%';
