@@ -31,24 +31,17 @@ document.querySelectorAll('.code-row').forEach(row => {
   });
 });
 
-const dnaDetails = [
-  ['Дерек — 85%', 'Бұл көрсеткіш демонстрациялық үлгі. Нақты адамның ДНҚ-сын немесе мінезін өлшемейді.'],
-  ['Нақтылық — 70%', 'Ақпараттың сенімділігін тексеру үшін бірнеше дереккөзді салыстыр. Бұл пайыз — тек интерфейс мысалы.'],
-  ['Құндылық — 90%', 'Абай еңбектеріндегі құндылықтарды күнделікті ісіңмен байланыстырып көр. Бұл пайыз нақты тест нәтижесі емес.'],
-  ['Өмірмен байланыс — 75%', 'Оқыған ойыңды өмірдегі жағдайға қолданып көр. Бұл көрсеткіш те тек демонстрациялық.']
-];
-document.querySelectorAll('.metric').forEach((metric, index) => {
-  metric.tabIndex = 0;
-  metric.setAttribute('role', 'button');
-  metric.setAttribute('aria-label', dnaDetails[index][0]);
-  const showDetail = () => notify(dnaDetails[index][1]);
-  metric.addEventListener('click', showDetail);
-  metric.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      showDetail();
-    }
-  });
+document.getElementById('dailyAction').addEventListener('click', () => {
+  const tips = [
+    'Талап: бүгін бір тақырыпты таңдап, ол туралы үш жаңа мәлімет үйрен.',
+    'Еңбек: үлкен тапсырманы үш шағын қадамға бөл де, бірін қазір орында.',
+    'Терең ой: бір шешім қабылдамас бұрын оның екі пайдасы мен бір ықтимал салдарын ойлан.',
+    'Қанағат: қолыңда бар бір жақсы мүмкіндікті бағалап, соны пайдалы қолдан.',
+    'Рақым: бір адамды мұқият тыңда немесе ештеңе күтпей көмектес.'
+  ];
+  const tip = tips[Math.floor(Math.random() * tips.length)];
+  document.querySelector('.daily-prompt span').textContent = tip;
+  notify(tip);
 });
 
 const questions = [
@@ -76,7 +69,7 @@ tabContent.id = 'tabContent';
 tabContent.className = 'tab-content';
 dashboard.insertAdjacentElement('afterend', tabContent);
 
-const movableIds = ['codePanel','worksPanel','challengePanel','dnaPanel','aboutAbai','valuesSection','worksLibrary','quizSection'];
+const movableIds = ['codePanel','worksPanel','challengePanel','aboutAbai','valuesSection','worksLibrary','quizSection'];
 const originalSlots = {};
 movableIds.forEach(id => {
   const node = document.getElementById(id);
@@ -95,21 +88,18 @@ function restorePanels() {
 function openTab(section) {
   restorePanels();
   const titles = {
-    home: ['Жағдайыңды таңда', 'Саған жақын өмірлік жағдайды таңда, Абай ойы саған жол көрсетеді.'],
-    situations: ['Жағдайыңды таңда', 'Төмендегі жағдайлардың бірін таңдап, кеңес ал.'],
-    code: ['Абай коды', 'Талап, еңбек және қайрат туралы карточканы таңдап, кеңесін оқы.'],
-    works: ['Абай шығармасы', 'Шығарманы таңдап, оның мағынасы мен негізгі ойын оқы.'],
-    dna: ['ДНҚ тексеру', 'Абай құндылықтарына арналған үлгілік көрсеткіштермен таныс.'],
-    challenge: ['Сен не істер едің?', 'Сұраққа ойланып жауап беріп, келесі жағдайға өт.'],
-    about: ['Абай әлемі', 'Абайдың өмірі мен бес асыл ісін зертте.'],
-    quiz: ['Өзіңді тексер', 'Үш сұраққа жауап беріп, біліміңді тексер.']
+    home: ['Басты бет', 'Абайдың ойларын күнделікті өмірде қолдануға арналған қысқа жолсерік.'],
+    values: ['Абай құндылықтары', 'Талап, еңбек, терең ой, қанағат және рақым: мағынасы мен өмірдегі мысалдары.'],
+    works: ['Абай шығармалары', 'Өлеңдер мен қара сөздердің негізгі ойын оқып, бүгінгі өмірмен байланыстырып көр.'],
+    practice: ['Практика және тест', 'Өмірлік сұрақтарға жауап беріп, біліміңді шағын тест арқылы тексер.'],
+    about: ['Абай туралы', 'Абай Құнанбайұлының өмір жолы, шығармашылығы және тарихи мұрасы.']
   };
   const heading = document.querySelector('.welcome-row h1');
   const subtitle = document.querySelector('.welcome-row p');
   heading.textContent = (titles[section] || titles.home)[0];
   subtitle.textContent = (titles[section] || titles.home)[1];
 
-  if (section === 'home' || section === 'situations') {
+  if (section === 'home') {
     dashboard.hidden = false;
     tabContent.hidden = true;
     window.scrollTo({top:0, behavior:'smooth'});
@@ -123,12 +113,10 @@ function openTab(section) {
     tabContent.appendChild(slot.node);
     slot.node.classList.add('is-visible');
   };
-  if (section === 'code') add('codePanel');
+  if (section === 'values') { add('codePanel'); add('valuesSection'); }
   if (section === 'works') { add('worksPanel'); add('worksLibrary'); }
-  if (section === 'dna') add('dnaPanel');
-  if (section === 'challenge') add('challengePanel');
-  if (section === 'about') { add('aboutAbai'); add('valuesSection'); }
-  if (section === 'quiz') add('quizSection');
+  if (section === 'practice') { add('challengePanel'); add('quizSection'); }
+  if (section === 'about') add('aboutAbai');
   tabContent.scrollIntoView({behavior:'smooth', block:'start'});
 }
 document.querySelectorAll('.nav-item').forEach(item => {
