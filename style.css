@@ -122,3 +122,8 @@ footer{padding-top:24px;padding-bottom:12px}
 .daily-action:hover{background:#dbe9ff;transform:translateY(-1px)}
 .daily-action span{font-size:18px}
 @media(max-width:620px){.nav-item{min-height:38px}}
+
+.daily-step{margin:10px 0 0;padding:10px 11px;border-left:3px solid #83a5cf;border-radius:0 9px 9px 0;background:#f5f8fd;color:#526781;font-size:11px;line-height:1.7}
+.daily-step[hidden]{display:none}
+.daily-panel.tip-updated .daily-prompt{animation:tipReveal .3s ease-out}
+@keyframes tipReveal{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
