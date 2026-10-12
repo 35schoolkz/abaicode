@@ -103,7 +103,7 @@ tabContent.id = 'tabContent';
 tabContent.className = 'tab-content';
 dashboard.insertAdjacentElement('afterend', tabContent);
 
-const movableIds = ['codePanel','worksPanel','challengePanel','aboutAbai','valuesSection','worksLibrary','quizSection'];
+const movableIds = ['codePanel','worksPanel','challengePanel','aboutAbai','valuesSection','worksLibrary','quizSection','gamesSection','favoritesSection'];
 const originalSlots = {};
 movableIds.forEach(id => {
   const node = document.getElementById(id);
