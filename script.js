@@ -31,6 +31,26 @@ document.querySelectorAll('.code-row').forEach(row => {
   });
 });
 
+const dnaDetails = [
+  ['Дерек — 85%', 'Бұл көрсеткіш демонстрациялық үлгі. Нақты адамның ДНҚ-сын немесе мінезін өлшемейді.'],
+  ['Нақтылық — 70%', 'Ақпараттың сенімділігін тексеру үшін бірнеше дереккөзді салыстыр. Бұл пайыз — тек интерфейс мысалы.'],
+  ['Құндылық — 90%', 'Абай еңбектеріндегі құндылықтарды күнделікті ісіңмен байланыстырып көр. Бұл пайыз нақты тест нәтижесі емес.'],
+  ['Өмірмен байланыс — 75%', 'Оқыған ойыңды өмірдегі жағдайға қолданып көр. Бұл көрсеткіш те тек демонстрациялық.']
+];
+document.querySelectorAll('.metric').forEach((metric, index) => {
+  metric.tabIndex = 0;
+  metric.setAttribute('role', 'button');
+  metric.setAttribute('aria-label', dnaDetails[index][0]);
+  const showDetail = () => notify(dnaDetails[index][1]);
+  metric.addEventListener('click', showDetail);
+  metric.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      showDetail();
+    }
+  });
+});
+
 const questions = [
   'Сен бүгін қандай кішкентай қадам жасай аласың?',
   'Біреуге көмектесу үшін бүгін не істей аласың?',
