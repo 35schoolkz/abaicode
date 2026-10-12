@@ -48,43 +48,77 @@ document.getElementById('quoteButton').addEventListener('click', () => {
   notify('«Ғылым таппай мақтанба» — Абайдың жастарға арналған өлеңі. Ақын талап, еңбек, терең ой, қанағат пен рақымды бағалауға шақырады.');
 });
 
-const navSections = {
-  situations: [],
-  code: [],
-  works: ['worksLibrary'],
-  dna: [],
-  challenge: [],
-  about: ['aboutAbai','valuesSection'],
-  quiz: ['quizSection']
-};
+// Real tab navigation: move the existing interactive panels into the selected tab,
+// keeping their event listeners intact instead of leaving them below the dashboard.
+const dashboard = document.querySelector('.dashboard-grid');
+const tabContent = document.createElement('section');
+tabContent.id = 'tabContent';
+tabContent.className = 'tab-content';
+dashboard.insertAdjacentElement('afterend', tabContent);
+
+const movableIds = ['codePanel','worksPanel','challengePanel','dnaPanel','aboutAbai','valuesSection','worksLibrary','quizSection'];
+const originalSlots = {};
+movableIds.forEach(id => {
+  const node = document.getElementById(id);
+  if (!node) return;
+  const marker = document.createComment('original position for ' + id);
+  node.parentNode.insertBefore(marker, node);
+  originalSlots[id] = { node, marker };
+});
+function restorePanels() {
+  Object.values(originalSlots).forEach(({node,marker}) => {
+    if (marker.parentNode) marker.parentNode.insertBefore(node, marker.nextSibling);
+    node.classList.remove('is-visible');
+  });
+  tabContent.replaceChildren();
+}
+function openTab(section) {
+  restorePanels();
+  const titles = {
+    home: ['Жағдайыңды таңда', 'Саған жақын өмірлік жағдайды таңда, Абай ойы саған жол көрсетеді.'],
+    situations: ['Жағдайыңды таңда', 'Төмендегі жағдайлардың бірін таңдап, кеңес ал.'],
+    code: ['Абай коды', 'Талап, еңбек және қайрат туралы карточканы таңдап, кеңесін оқы.'],
+    works: ['Абай шығармасы', 'Шығарманы таңдап, оның мағынасы мен негізгі ойын оқы.'],
+    dna: ['ДНҚ тексеру', 'Абай құндылықтарына арналған үлгілік көрсеткіштермен таныс.'],
+    challenge: ['Сен не істер едің?', 'Сұраққа ойланып жауап беріп, келесі жағдайға өт.'],
+    about: ['Абай әлемі', 'Абайдың өмірі мен бес асыл ісін зертте.'],
+    quiz: ['Өзіңді тексер', 'Үш сұраққа жауап беріп, біліміңді тексер.']
+  };
+  const heading = document.querySelector('.welcome-row h1');
+  const subtitle = document.querySelector('.welcome-row p');
+  heading.textContent = (titles[section] || titles.home)[0];
+  subtitle.textContent = (titles[section] || titles.home)[1];
+
+  if (section === 'home' || section === 'situations') {
+    dashboard.hidden = false;
+    tabContent.hidden = true;
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
+  }
+  dashboard.hidden = true;
+  tabContent.hidden = false;
+  const add = id => {
+    const slot = originalSlots[id];
+    if (!slot) return;
+    tabContent.appendChild(slot.node);
+    slot.node.classList.add('is-visible');
+  };
+  if (section === 'code') add('codePanel');
+  if (section === 'works') { add('worksPanel'); add('worksLibrary'); }
+  if (section === 'dna') add('dnaPanel');
+  if (section === 'challenge') add('challengePanel');
+  if (section === 'about') { add('aboutAbai'); add('valuesSection'); }
+  if (section === 'quiz') add('quizSection');
+  tabContent.scrollIntoView({behavior:'smooth', block:'start'});
+}
 document.querySelectorAll('.nav-item').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     item.classList.add('active');
-    const section = item.dataset.section;
-    const titles = {
-      home: ['Жағдайыңды таңда', 'Саған жақын өмірлік жағдайды таңда, Абай ойы саған жол көрсетеді.'],
-      situations: ['Жағдайыңды таңда', 'Төмендегі жағдайлардың бірін таңдап, кеңес ал.'],
-      code: ['Абай коды', 'Талап, еңбек және қайрат туралы карточканы таңда.'],
-      works: ['Абай шығармасы', 'Оқуға ұсынылған шығарманы таңдап, түсіндірмесін оқы.'],
-      dna: ['ДНҚ тексеру', 'Бұл — үлгілік көрсеткіштер. Олар нақты ғылыми өлшем емес.'],
-      challenge: ['Сен не істер едің?', 'Келесі сұрақты көру үшін көрсеткі батырмасын бас.'],
-      about: ['Абай әлемі', 'Абайдың өмірі және бес асыл ісі туралы оқы.'],
-      quiz: ['Өзіңді тексер', 'Абай мұрасы туралы шағын тестті орында.']
-    };
-    document.querySelector('.welcome-row h1').textContent = titles[section][0];
-    document.querySelector('.welcome-row p').textContent = titles[section][1];
-    document.querySelectorAll('.deep-dive').forEach(el => el.classList.remove('is-visible'));
-    (navSections[section] || []).forEach(id => document.getElementById(id)?.classList.add('is-visible'));
-    const targets = {
-      home: 'mainContent', situations: 'mainContent', code: 'codePanel', dna: 'dnaPanel',
-      challenge: 'challengePanel', works: 'worksLibrary', about: 'aboutAbai', quiz: 'quizSection'
-    };
-    const target = document.getElementById(targets[section] || 'mainContent');
-    if (section === 'home' || section === 'situations') window.scrollTo({top:0,behavior:'smooth'});
-    else target?.scrollIntoView({behavior:'smooth',block:'start'});
+    openTab(item.dataset.section);
   });
 });
+
 document.querySelectorAll('.top-actions button').forEach((button, index) => {
   const messages = ['Іздеу мүмкіндігі кейін қосылады.', 'Қазір жаңа хабарлама жоқ.', 'Профиль бөлімі кейін қосылады.'];
   button.addEventListener('click', () => notify(messages[index]));
