@@ -272,7 +272,6 @@ function showQuizResult(){
 document.getElementById('nextQuiz').addEventListener('click',()=>{
  if(levelFailed){quizIndex=0;chooseLevelQuestions();renderQuiz();return;}
  if(levelFinished){if(currentLevel<quizLevels.length-1){currentLevel++;quizIndex=0;chooseLevelQuestions();drawLevelRoad();renderQuiz();}else{currentLevel=0;quizIndex=0;chooseLevelQuestions();drawLevelRoad();renderQuiz();}return;}
- if(!quizAnswered)return;
  if(selectedAnswer===null)return;
  if(document.getElementById('nextQuiz').textContent.includes('тексеру')){showQuizResult();return;}
  if(quizIndex<4){quizIndex++;renderQuiz();}
