@@ -243,7 +243,7 @@ function renderQuiz(){
  document.getElementById('quizCount').textContent=(currentLevel+1)+'-ДЕҢГЕЙ · '+(quizIndex+1)+' / '+5+' СҰРАҚ';
  document.getElementById('quizDifficulty').textContent=level.tag;
  document.getElementById('quizQuestion').textContent=q.q;
- document.getElementById('levelQuizProgress').style.width=((quizIndex/level.questions.length)*100)+'%';
+ document.getElementById('levelQuizProgress').style.width=((quizIndex/5)*100)+'%';
  document.getElementById('quizFeedback').textContent='Жауаптардың бірін таңда.';
  options.innerHTML='';
  q.options.forEach((option,index)=>{const b=document.createElement('button');b.type='button';b.textContent=option;b.className='level-option';b.addEventListener('click',()=>{if(quizAnswered||levelFailed||levelFinished)return;selectedAnswer=index;quizAnswered=true;[...options.children].forEach((el,j)=>{el.classList.toggle('selected',j===index)});document.getElementById('quizFeedback').textContent='Таңдауың белгіленді. Тексеруге дайын болсаң, батырманы бас.';document.getElementById('nextQuiz').disabled=false;document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';});options.appendChild(b)});
@@ -251,15 +251,15 @@ function renderQuiz(){
  document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';
 }
 function showQuizResult(){
- const q=quizLevels[currentLevel].questions[quizIndex],options=[...document.getElementById('quizOptions').children],next=document.getElementById('nextQuiz');
+ const q=currentQuestions[quizIndex],options=[...document.getElementById('quizOptions').children],next=document.getElementById('nextQuiz');
  options.forEach((el,i)=>{el.disabled=true;if(i===q.correct)el.classList.add('correct');else if(i===selectedAnswer)el.classList.add('incorrect')});
- document.getElementById('levelQuizProgress').style.width=(((quizIndex+1)/quizLevels[currentLevel].questions.length)*100)+'%';
+ document.getElementById('levelQuizProgress').style.width=(((quizIndex+1)/5)*100)+'%';
  if(selectedAnswer!==q.correct){
   levelFailed=true;document.getElementById('quizFeedback').textContent='Бұл жолы дұрыс болмады. '+q.why+' Деңгейді қайта бастау керек.';
   next.disabled=false;next.innerHTML='Деңгейді қайта өту <span>↻</span>';return;
  }
  document.getElementById('quizFeedback').textContent='Дұрыс! '+q.why;
- if(quizIndex<quizLevels[currentLevel].questions.length-1){next.disabled=false;next.innerHTML='Келесі сұрақ <span>→</span>';}
+ if(quizIndex<4){next.disabled=false;next.innerHTML='Келесі сұрақ <span>→</span>';}
  else{
   levelFinished=true;
   if(!quizProgress.completed.includes(currentLevel)){quizProgress.completed.push(currentLevel);if(currentLevel<quizLevels.length-1)quizProgress.unlocked=Math.max(quizProgress.unlocked,currentLevel+1);saveQuizProgress();awardXP(50);}
