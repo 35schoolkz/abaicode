@@ -21,3 +21,15 @@
 .answer-overlay{position:fixed;inset:0;z-index:1000;background:rgba(18,35,61,.42);display:grid;place-items:center;padding:18px;backdrop-filter:blur(3px)}
 .answer-dialog{position:relative;width:min(460px,100%);padding:28px 24px 22px;border:1px solid #e4eaf2;border-radius:20px;background:#fff;box-shadow:0 24px 80px #10213b40;text-align:center;color:#203451;animation:answerIn .18s ease-out}
 .answer-dialog h2{font-size:21px;margin:7px 0 12px}.answer-dialog .answer-message{font-size:14px;line-height:1.75;color:#52627a;margin:0 0 20px;white-space:pre-line}.answer-mark{margin:auto;width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:#e9f1ff;color:#2d5b91;font-size:24px}.answer-close{position:absolute;right:12px;top:9px;border:0;background:transparent;color:#66758b;font-size:27px;cursor:pointer}.answer-ok{border:0;border-radius:10px;padding:11px 22px;background:#244f83;color:#fff;font-weight:700;cursor:pointer}.answer-ok:hover{background:#193d6b}@keyframes answerIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+/* Tab content is a real page view; the dashboard is hidden while a menu tab is open. */
+.tab-content{display:block;min-height:240px;margin-top:10px;scroll-margin-top:16px}
+.tab-content[hidden],.dashboard-grid[hidden]{display:none!important}
+.tab-content>.panel,.tab-content>.deep-dive{width:100%;margin:0 0 14px}
+.tab-content>.deep-dive.is-visible{display:block}
+.tab-content .code-panel,.tab-content .work-panel,.tab-content .challenge-panel,.tab-content .dna-panel{display:block}
+.tab-content .code-row{width:100%;margin-top:8px}
+.tab-content .metrics{max-width:600px}
+.tab-content .works-list{max-width:900px}
+.tab-content .quiz-card{margin:0}
+.metric{cursor:pointer}
+.metric:focus-visible{outline:2px solid #477bb8;outline-offset:4px}
