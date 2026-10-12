@@ -127,3 +127,22 @@ footer{padding-top:24px;padding-bottom:12px}
 .daily-step[hidden]{display:none}
 .daily-panel.tip-updated .daily-prompt{animation:tipReveal .3s ease-out}
 @keyframes tipReveal{from{opacity:.55;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+
+/* Custom line icons and a real Abai portrait */
+.book-logo{width:42px;height:42px;display:grid;place-items:center;transform:none;color:#17365d}
+.book-logo svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.nav-icon{display:grid;place-items:center;flex:0 0 20px;width:20px;height:20px;color:#54739b}
+.nav-icon svg,.top-actions svg,.tile-icon svg,.small-icon svg,.compass svg,.target-icon svg,.section-symbol svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nav-item.active .nav-icon{color:#245aa0}
+.top-actions button{display:grid;place-items:center;width:34px;height:34px;border:1px solid #e2e9f2;box-shadow:0 3px 10px #233c5b0b}
+.top-actions svg{width:17px;height:17px}
+.portrait{right:10%;bottom:-13px;width:118px;height:137px;border-radius:52% 52% 8px 8px;overflow:hidden;background:#e5d5bd;box-shadow:0 5px 18px #283c5420;border:3px solid #fff9}
+.portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 18%;filter:sepia(.12) saturate(.82);mix-blend-mode:multiply}
+.banner-art{background:linear-gradient(90deg,transparent 0%,#f4f6f3a8 60%,#dfe9f0b5 100%);pointer-events:none}
+.tile-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#ffffffa8;padding:8px;filter:drop-shadow(0 2px 2px #1c35520b)}
+.tile-icon svg{width:23px;height:23px;stroke-width:1.8}
+.small-icon{padding:6px}
+.compass,.target-icon,.section-symbol{padding:7px}
+.section-symbol svg{width:24px;height:24px}
+@media(max-width:620px){.book-logo{width:32px;height:32px}.book-logo svg{width:32px;height:32px}.portrait{right:15%;width:65px;height:83px;bottom:-8px;opacity:.9}.top-actions button{width:27px;height:27px}.top-actions svg{width:14px;height:14px}.nav-icon{flex-basis:17px;width:17px;height:17px}.tile-icon{width:31px;height:31px;padding:6px}}
