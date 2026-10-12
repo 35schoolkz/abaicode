@@ -109,3 +109,16 @@ footer{padding-top:24px;padding-bottom:12px}
 .source-links a span{font-size:12px;font-weight:800;color:#2a4568}
 .source-links a b{font-size:10px;line-height:1.5;color:#6f8097}
 @media(max-width:620px){.source-links{grid-template-columns:1fr}.source-links a{flex-direction:row;align-items:center}}
+
+
+/* Clearer information architecture: fewer, purposeful tabs */
+.sidebar nav{gap:7px}
+.nav-item{min-height:42px;border-radius:11px}
+.nav-item.active{box-shadow:inset 3px 0 0 #315f98;background:#e5efff}
+.daily-panel>p{font-size:12px;line-height:1.75;color:#64748b;margin:0 0 12px}
+.daily-prompt{display:flex;flex-direction:column;gap:5px;padding:12px;border-radius:11px;background:#f6f8fc;border:1px solid #e8edf5;color:#52627a;font-size:11px;line-height:1.65}
+.daily-prompt strong{font-size:11px;color:#2b466a}
+.daily-action{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:11px;padding:10px 12px;border:0;border-radius:10px;background:#e7f0ff;color:#244e83;font-size:12px;font-weight:700;cursor:pointer}
+.daily-action:hover{background:#dbe9ff;transform:translateY(-1px)}
+.daily-action span{font-size:18px}
+@media(max-width:620px){.nav-item{min-height:38px}}
