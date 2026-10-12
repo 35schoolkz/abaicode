@@ -185,29 +185,100 @@ document.querySelectorAll('.work-item').forEach(item => item.addEventListener('c
   notify(`${item.dataset.work}. ${item.dataset.detail}`);
 }));
 
-const quizQuestions = [
-  {q:'Абайдың «Ғылым таппай мақтанба» өлеңінде неге ұмтылу айтылады?', options:['Тек атақ пен байлыққа','Білімге, еңбекке және жақсы мінезге','Уақытты бос өткізуге'], correct:1, explanation:'Дұрыс! Абай талап, еңбек, терең ой, қанағат және рақымды бағалауға шақырады.'},
-  {q:'Абайдың қара сөздерінде қандай тақырыптар қозғалады?', options:['Тек спорт ережелері','Тек саяхат бағыттары','Білім, мінез, еңбек және адамгершілік'], correct:2, explanation:'Дұрыс! Қара сөздер адамды өзін тануға және жақсы қасиеттерді дамытуға үндейді.'},
-  {q:'Қиын тапсырмаға тап болсаң, қай әрекет Абай идеяларына жақын?', options:['Бірден бас тарту','Жоспар құрып, еңбек етіп, көмек сұрау','Басқаға орындату'], correct:1, explanation:'Дұрыс! Талап пен еңбек қиындықты біртіндеп жеңуге көмектеседі.'}
+const quizLevels = [
+  {name:'Бастаушы',tag:'БАСТАУШЫ',questions:[
+    {q:'Абай Құнанбайұлы қай жылы дүниеге келді?',options:['1835 жылы','1845 жылы','1855 жылы','1904 жылы'],correct:1,why:'Абай 1845 жылы дүниеге келген.'},
+    {q:'Абайдың азан шақырып қойған есімі қандай?',options:['Ибраһим','Мұхтар','Әлихан','Шоқан'],correct:0,why:'Абайдың шын есімі — Ибраһим. «Абай» есімі кейін кең тараған.'},
+    {q:'Абай қай халықтың ұлы ақыны және ойшылы?',options:['Қырғыз халқының','Өзбек халқының','Қазақ халқының','Татар халқының'],correct:2,why:'Абай — қазақтың ұлы ақыны, ойшылы, ағартушысы.'},
+    {q:'Абай қай жылы дүниеден өтті?',options:['1895 жылы','1904 жылы','1914 жылы','1845 жылы'],correct:1,why:'Абай 1904 жылы дүниеден өтті.'},
+    {q:'Абайдың негізгі мұраларының бірі қайсы?',options:['Қара сөздер','Манас эпосы','Кодекс Куманикус','Оғызнама'],correct:0,why:'«Қара сөздер» — Абайдың философиялық прозалық мұрасы.'}
+  ]},
+  {name:'Ізденуші',tag:'ЖЕҢІЛ',questions:[
+    {q:'«Ғылым таппай мақтанба» өлеңінде неге ұмтылу насихатталады?',options:['Бос мақтанға','Білімге және жақсы мінезге','Даңқ үшін таласуға','Уақытты бос өткізуге'],correct:1,why:'Абай білімді, еңбекті және жақсы мінезді жоғары қояды.'},
+    {q:'Бес асыл істің қатарына қайсысы кіреді?',options:['Өсек','Еріншектік','Рақым','Мақтаншақтық'],correct:2,why:'Бес асыл іс: талап, еңбек, терең ой, қанағат, рақым.'},
+    {q:'Абайдың бес дұшпанының бірі қайсы?',options:['Талап','Қанағат','Терең ой','Өсек'],correct:3,why:'Өсек, өтірік, мақтаншақтық, еріншектік және бекер мал шашу — бес дұшпан.'},
+    {q:'Абайдың «Қара сөздері» қандай шығарма түріне жатады?',options:['Философиялық прозаға','Тек ертегіге','Саяхат күнделігіне','Драмаға'],correct:0,why:'Қара сөздерде адам, мінез, білім және қоғам туралы ойлар айтылады.'},
+    {q:'Абайдың әкесі кім?',options:['Бөжей','Құнанбай','Байсал','Жиренше'],correct:1,why:'Абайдың әкесі — Құнанбай Өскенбайұлы.'}
+  ]},
+  {name:'Білгір',tag:'ОРТАША',questions:[
+    {q:'Абайдың «Жетінші қара сөзінде» қандай мәселе қозғалады?',options:['Балалықтағы білуге құмарлық пен жан құмары','Соғыс тактикасы','Егіншілік тәсілдері','Сауда бағалары'],correct:0,why:'Жетінші сөзде тән құмары мен жан құмары, білуге ұмтылу туралы ой қозғалады.'},
+    {q:'«Бес нәрседен қашық бол, бес нәрсеге асық бол» деген ой қай өлеңмен байланысты?',options:['Қыс','Сегіз аяқ','Ғылым таппай мақтанба','Желсіз түнде жарық ай'],correct:2,why:'Бұл ой «Ғылым таппай мақтанба» өлеңіндегі бес асыл іс пен бес дұшпанға қатысты.'},
+    {q:'Абай шығармаларында жиі көтерілетін құндылықтар жиынтығын таңда.',options:['Өсек пен орынсыз мақтан','Білім, еңбек, әділет және адамгершілік','Жалқаулық пен надандық','Тек байлық жинау'],correct:1,why:'Абай білімге, еңбекке, әділетке және адамгершілікке үндейді.'},
+    {q:'Абай орыс әдебиетінен кімдердің шығармаларын қазақшаға аударған?',options:['Пушкин, Лермонтов, Крылов','Толстой ғана','Гоголь мен Чехов қана','Ешкімнің шығармасын аудармаған'],correct:0,why:'Абай Пушкин, Лермонтов және Крылов шығармаларын аударған.'},
+    {q:'«Қанағат» ұғымына қай түсінік жақын?',options:['Барды бағалап, шектен шықпау','Әрқашан өзгемен жарысу','Мақтану үшін әрекет ету','Өзгені кінәлау'],correct:0,why:'Қанағат — барды бағалау және қалауды ақылмен басқару.'}
+  ]},
+  {name:'Зерттеуші',tag:'ҚИЫН',questions:[
+    {q:'Абайдың «толық адам» идеясына ең жақын сипаттама қайсы?',options:['Тек көп дүние жинаған адам','Ақыл, қайрат, жүрек үйлесімін ұстанған адам','Басқалардан үстем болуға тырысқан адам','Қателігін мойындамайтын адам'],correct:1,why:'Абай танымында ақыл, қайрат пен жүрек үйлесімі маңызды орын алады.'},
+    {q:'Абайдың он жетінші қара сөзінде қай қасиеттер өзара таласады?',options:['Талап, еңбек, қанағат','Ақыл, қайрат, жүрек','Өсек, өтірік, мақтан','Жаз, күз, қыс'],correct:1,why:'Он жетінші қара сөзде ақыл, қайрат және жүрек туралы ғибратты әңгіме берілген.'},
+    {q:'Абайдың табиғат лирикасына жататын шығарманы тап.',options:['Қара сөздер','Ғылым таппай мақтанба','Қыс','Әсемпаз болма әрнеге'],correct:2,why:'«Қыс» өлеңінде ақын табиғатты жанды бейнедей суреттейді.'},
+    {q:'Абайдың ағартушылық ойының негізгі мақсатына қайсысы сай?',options:['Халықты білім мен саналы еңбекке үндеу','Оқуды қажетсіз санау','Дәстүрлі білімнің бәрін жоққа шығару','Тек билікке ұмтылу'],correct:0,why:'Абай халықтың білімді, еңбекқор, әділетті әрі саналы болуын қалаған.'},
+    {q:'Абайдың қара сөздерін оқудың пайдалы тәсілі қайсы?',options:['Мағынасын түсінбей жаттау','Тек соңғы сөйлемін оқу','Негізгі ойды тауып, өмірмен байланыстыру','Тек атауларын есте сақтау'],correct:2,why:'Негізгі ойды түсініп, оны өмірмен байланыстыру мәтінді терең меңгеруге көмектеседі.'}
+  ]},
+  {name:'Абайтанушы',tag:'САРАПШЫ',questions:[
+    {q:'Он жетінші қара сөздегі таласта жүрек қандай ұстанымды қорғайды?',options:['Мейірім, рақым және адамға жанашырлықты','Тек пайда табуды','Қаталдықты бәрінен жоғары қоюды','Білімнен бас тартуды'],correct:0,why:'Жүрек мейірім, рақым және адамгершілік қасиеттерін алға тартады.'},
+    {q:'«Пайда ойлама, ар ойла» деген өсиет нені білдіреді?',options:['Кез келген мүмкіндіктен бас тарту','Материалдық пайдадан ар-намыс пен адалдықты жоғары қою','Еңбек етпеу','Өзгенің пікірін елемеу'],correct:1,why:'Бұл өсиет ар-ұят пен адалдықты жеке пайдадан жоғары қоюға шақырады.'},
+    {q:'Абайдың орыс және Еуропа әдебиетімен танысуы қандай ықпал етті?',options:['Дүниетанымын кеңейтіп, аудармашылық еңбегін байытты','Шығармашылықтан толық бас тарттырды','Тек табиғат туралы жаздырды','Қазақ тілін қолданбауына әкелді'],correct:0,why:'Әртүрлі әдебиет пен ойларды тану Абайдың дүниетанымын кеңейткен.'},
+    {q:'Абайдың өлеңдеріндегі бес дұшпан мен бес асыл істі қатар көрсету тәсілі нені күшейтеді?',options:['Жақсы мен жаман мінезді салыстырып, таңдаудың маңызын','Табиғат көрінісін ғана','Оқиғаның уақытын','Кейіпкерлер санын'],correct:0,why:'Қарама-қарсы қою арқылы ақын оқырманға қандай мінезден қашып, қай қасиетті дамыту керегін ұғындырады.'},
+    {q:'Абай мұрасын бүгінгі өмірде қолданудың ең терең үлгісі қайсы?',options:['Дәйексөздерді ғана жаттау','Басқаны сынап, өзіңді өзгертпеу','Білім іздеп, мінезіңді саралап, әділет пен мейірімді іс жүзінде көрсету','Өз пікіріңді дәлелсіз дұрыс санау'],correct:2,why:'Абай мұрасы өзін-өзі тәрбиелеуге, білімге, әділетке және рақымға күнделікті әрекетпен ұмтылуға үндейді.'}
+  ]}
 ];
-let quizIndex = 0;
-let quizAnswered = false;
-function renderQuiz(){
-  const q=quizQuestions[quizIndex];
-  document.getElementById('quizCount').textContent=`СҰРАҚ ${quizIndex+1} / ${quizQuestions.length}`;
-  document.getElementById('quizQuestion').textContent=q.q;
-  document.getElementById('quizFeedback').textContent='Жауаптардың бірін таңда.';
-  const options=document.getElementById('quizOptions'); options.innerHTML=''; quizAnswered=false;
-  q.options.forEach((option,index)=>{const b=document.createElement('button');b.textContent=option;b.dataset.correct=String(index===q.correct);b.addEventListener('click',()=>{
-    if(quizAnswered)return;quizAnswered=true;
-    [...options.children].forEach((el,i)=>{el.disabled=true;if(i===q.correct)el.classList.add('correct');else if(i===index)el.classList.add('incorrect');});
-    document.getElementById('quizFeedback').textContent=index===q.correct?q.explanation:'Бұл жауап дұрыс емес. Жасыл түспен белгіленген жауапты есте сақтап көр.';
-    document.getElementById('nextQuiz').disabled=false;
-  });options.appendChild(b);});
-  const next=document.getElementById('nextQuiz');next.disabled=true;next.innerHTML=quizIndex===quizQuestions.length-1?'Қайта бастау <span>↻</span>':'Келесі сұрақ <span>→</span>';
+const quizStoreKey='abaicode_quiz_levels';
+let quizProgress;
+try{quizProgress=JSON.parse(localStorage.getItem(quizStoreKey))||{unlocked:0,completed:[]}}catch(e){quizProgress={unlocked:0,completed:[]}}
+quizProgress.unlocked=Math.max(0,Math.min(4,Number(quizProgress.unlocked)||0));
+if(!Array.isArray(quizProgress.completed))quizProgress.completed=[];
+let currentLevel=0,quizIndex=0,quizAnswered=false,levelFailed=false,levelFinished=false,selectedAnswer=null;
+const levelIcons=['✦','❋','◇','✺','♛'];
+function saveQuizProgress(){try{localStorage.setItem(quizStoreKey,JSON.stringify(quizProgress))}catch(e){}}
+function drawLevelRoad(){
+ const road=document.getElementById('levelRoad');road.innerHTML='';
+ quizLevels.forEach((level,i)=>{
+  const b=document.createElement('button');b.type='button';b.className='level-stop'+(i===currentLevel?' current':'')+(quizProgress.completed.includes(i)?' completed':'')+(i>quizProgress.unlocked?' locked':'');b.disabled=i>quizProgress.unlocked;
+  b.innerHTML='<span class="level-stop-icon">'+(i>quizProgress.unlocked?'🔒':(quizProgress.completed.includes(i)?'✓':levelIcons[i]))+'</span><strong>'+String(i+1).padStart(2,'0')+'</strong><small>'+level.name+'</small>';
+  b.addEventListener('click',()=>{if(i<=quizProgress.unlocked){currentLevel=i;quizIndex=0;levelFailed=false;levelFinished=false;drawLevelRoad();renderQuiz();}});
+  road.appendChild(b);
+ });
 }
-document.getElementById('nextQuiz').addEventListener('click',()=>{quizIndex=(quizIndex+1)%quizQuestions.length;renderQuiz();});
-renderQuiz();
+function renderQuiz(){
+ const level=quizLevels[currentLevel],q=level.questions[quizIndex],options=document.getElementById('quizOptions');
+ quizAnswered=false;levelFailed=false;levelFinished=false;selectedAnswer=null;
+ document.getElementById('quizCount').textContent=(currentLevel+1)+'-ДЕҢГЕЙ · '+(quizIndex+1)+' / '+level.questions.length+' СҰРАҚ';
+ document.getElementById('quizDifficulty').textContent=level.tag;
+ document.getElementById('quizQuestion').textContent=q.q;
+ document.getElementById('levelQuizProgress').style.width=((quizIndex/level.questions.length)*100)+'%';
+ document.getElementById('quizFeedback').textContent='Жауаптардың бірін таңда.';
+ options.innerHTML='';
+ q.options.forEach((option,index)=>{const b=document.createElement('button');b.type='button';b.textContent=option;b.className='level-option';b.addEventListener('click',()=>{if(quizAnswered||levelFailed||levelFinished)return;selectedAnswer=index;quizAnswered=true;[...options.children].forEach((el,j)=>{el.classList.toggle('selected',j===index)});document.getElementById('quizFeedback').textContent='Таңдауың белгіленді. Тексеруге дайын болсаң, батырманы бас.';document.getElementById('nextQuiz').disabled=false;document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';});options.appendChild(b)});
+ document.getElementById('nextQuiz').disabled=true;
+ document.getElementById('nextQuiz').innerHTML='Жауапты тексеру <span>→</span>';
+}
+function showQuizResult(){
+ const q=quizLevels[currentLevel].questions[quizIndex],options=[...document.getElementById('quizOptions').children],next=document.getElementById('nextQuiz');
+ options.forEach((el,i)=>{el.disabled=true;if(i===q.correct)el.classList.add('correct');else if(i===selectedAnswer)el.classList.add('incorrect')});
+ document.getElementById('levelQuizProgress').style.width=(((quizIndex+1)/quizLevels[currentLevel].questions.length)*100)+'%';
+ if(selectedAnswer!==q.correct){
+  levelFailed=true;document.getElementById('quizFeedback').textContent='Бұл жолы дұрыс болмады. '+q.why+' Деңгейді қайта бастау керек.';
+  next.disabled=false;next.innerHTML='Деңгейді қайта өту <span>↻</span>';return;
+ }
+ document.getElementById('quizFeedback').textContent='Дұрыс! '+q.why;
+ if(quizIndex<quizLevels[currentLevel].questions.length-1){next.disabled=false;next.innerHTML='Келесі сұрақ <span>→</span>';}
+ else{
+  levelFinished=true;
+  if(!quizProgress.completed.includes(currentLevel)){quizProgress.completed.push(currentLevel);if(currentLevel<quizLevels.length-1)quizProgress.unlocked=Math.max(quizProgress.unlocked,currentLevel+1);saveQuizProgress();awardXP(50);}
+  drawLevelRoad();
+  document.getElementById('quizFeedback').textContent='Керемет! 5 сұрақтың бәріне дұрыс жауап бердің. '+(currentLevel===quizLevels.length-1?'Сен барлық деңгейді аяқтадың — нағыз Абайтанушысың!': 'Келесі деңгей ашылды! +50 XP');
+  next.disabled=false;next.innerHTML=currentLevel===quizLevels.length-1?'Қайтадан ойнау <span>↻</span>':'Келесі деңгейге өту <span>✦</span>';
+ }
+}
+document.getElementById('nextQuiz').addEventListener('click',()=>{
+ if(levelFailed){quizIndex=0;renderQuiz();return;}
+ if(levelFinished){if(currentLevel<quizLevels.length-1){currentLevel++;quizIndex=0;drawLevelRoad();renderQuiz();}else{currentLevel=0;quizIndex=0;drawLevelRoad();renderQuiz();}return;}
+ if(!quizAnswered)return;
+ if(selectedAnswer===null)return;
+ if(document.getElementById('nextQuiz').textContent.includes('тексеру')){showQuizResult();return;}
+ if(quizIndex<quizLevels[currentLevel].questions.length-1){quizIndex++;renderQuiz();}
+});
+drawLevelRoad();renderQuiz();
 
 // Search the learning page using the header search control.
 document.querySelectorAll('.top-actions button').forEach((button,index)=>{
